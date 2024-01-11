@@ -1,4 +1,4 @@
-package html-processor
+package htmlprocessor
 
 import (
 	"net/http"
