@@ -1,9 +1,8 @@
 package httpclient
 
 import (
-    
     "encoding/json"
-    
+    "net/http"
 )
 
 // CustomHTTPResponse represents the JSON response structure.
@@ -24,7 +23,7 @@ func GetHTMLWithCustomOptions(targetURL, ipAddress, bearerToken string) ([]byte,
         RequestedURL: "b",
         ForwardedURL: "",
         HTMLBody:     "c",
-        HTTPCode:     "d",
+        HTTPCode:     1,
     }
 
    
