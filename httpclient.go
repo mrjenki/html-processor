@@ -5,7 +5,7 @@ import (
     "crypto/tls"
     "encoding/json"
     "net/http"
-    "net/url"
+    // "net/url"
     "golang.org/x/net/idna"
     "io/ioutil"
     "fmt"
