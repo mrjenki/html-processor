@@ -6,9 +6,9 @@ import (
     "encoding/json"
     "net/http"
     "net/url"
-    "net"
-    "time"
     "golang.org/x/net/idna"
+    "io/ioutil"
+    "fmt"
 )
 
 // CustomHTTPResponse represents the JSON response structure.
@@ -43,23 +43,48 @@ func GetHTMLWithCustomOptions(targetURL, ipAddress, bearerToken string) ([]byte,
     // Create a custom DNS resolver.
     customResolver := &net.Resolver{
         PreferGo: true,
-        Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
-            host, port, err := net.SplitHostPort(address)
-            if err != nil {
-                return nil, err
-            }
+    }
 
-            ip, err := CustomLookupIP(host, ipAddress)
-            if err != nil {
-                return nil, err
-            }
+    // Resolve the IP address for the specified hostname.
+    ip, err := CustomLookupIP(targetURL, ipAddress)
+    if err != nil {
+        return nil, err
+    }
 
-            return net.Dial(network, ip.String()+":"+port)
+    // Configure a custom HTTP transport.
+    customTransport := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+        DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+            return net.Dial(network, ip.String()+":80")
         },
     }
 
-    // Rest of the code remains the same...
-    // (Configure customTransport, create HTTP client, perform request, etc.)
+    // Create an HTTP client with the custom transport.
+    client := &http.Client{
+        Transport: customTransport,
+        Timeout:   10 * time.Second, // Set your desired timeout.
+    }
 
-    return jsonResponse, nil
-}
+    // Create an HTTP request.
+    req, err := http.NewRequest("GET", targetURL, nil)
+    if err != nil {
+        return nil, err
+    }
+
+    // Set the Bearer token in the request header if provided.
+    if bearerToken != "" {
+        req.Header.Set("Authorization", "Bearer "+bearerToken)
+    }
+
+    // Perform the HTTP request.
+    resp, err := client.Do(req)
+    if err != nil {
+        return nil, err
+    }
+    defer resp.Body.Close()
+
+    // Read the response body.
+    htmlBody, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
