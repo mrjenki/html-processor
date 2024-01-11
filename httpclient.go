@@ -3,8 +3,7 @@ package httpclient
 import (
     "encoding/json"
     "net/http"
-    "net/url"
-    "strings"
+
     "time"
 )
 
