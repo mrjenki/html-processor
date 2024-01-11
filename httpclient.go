@@ -2,7 +2,7 @@ package httpclient
 
 import (
     "encoding/json"
-    "net/http"
+    // "net/http"
 )
 
 // CustomHTTPResponse represents the JSON response structure.
