@@ -15,7 +15,7 @@ type CustomHTTPResponse struct {
 }
 
 // GetHTMLWithCustomOptions sends an HTTP GET request with custom options.
-func GetHTMLWithCustomOptions(targetURL, ipAddress, bearerToken string) ([]byte, error) {
+func GetHTMLWithCustomOptions(targetURL, ipAddress, bearerToken string) (string, error) {
   
     // Create a CustomHTTPResponse struct.
     customResponse := CustomHTTPResponse{
