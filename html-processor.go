@@ -1,8 +1,6 @@
 package htmlprocessor
 
 import (
-	"net/http"
-	"os"
     curl "github.com/andelf/go-curl"
 )
 func getHTML(url string) (map[string]string, error) {
