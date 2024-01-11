@@ -88,3 +88,26 @@ func GetHTMLWithCustomOptions(targetURL, ipAddress, bearerToken string) ([]byte,
     if err != nil {
         return nil, err
     }
+
+    // Create a CustomHTTPResponse struct.
+    customResponse := CustomHTTPResponse{
+        FullHeader:   resp.Header,
+        RequestedURL: targetURL,
+        ForwardedURL: "",
+        HTMLBody:     string(htmlBody),
+        HTTPCode:     resp.StatusCode,
+    }
+
+    // Check if there were any redirects and add the forwarded URL if available.
+    if len(resp.Request.URL.String()) > 0 && resp.Request.URL.String() != targetURL {
+        customResponse.ForwardedURL = resp.Request.URL.String()
+    }
+
+    // Convert the response struct to JSON.
+    jsonResponse, err := json.Marshal(customResponse)
+    if err != nil {
+        return nil, err
+    }
+
+    return jsonResponse, nil
+}
