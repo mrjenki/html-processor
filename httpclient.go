@@ -4,6 +4,6 @@ import (
 )
 
 
-func fetchURL(url, bearerToken string) (*ResponseData, error) {
+func fetchURL(url, bearerToken string) (string, error) {
     return "a", nil
 }
