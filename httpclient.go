@@ -7,7 +7,7 @@ import (
 
 // CustomHTTPResponse represents the JSON response structure.
 type CustomHTTPResponse struct {
-    FullHeader   string `json:"requested_url"`//http.Header `json:"full_header"`
+    FullHeader   string      `json:"full_header"`
     RequestedURL string      `json:"requested_url"`
     ForwardedURL string      `json:"forwarded_url"`
     HTMLBody     string      `json:"html_body"`
