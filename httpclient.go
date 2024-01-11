@@ -1,8 +1,6 @@
 package httpclient
 import (
     "crypto/tls"
-    "encoding/json"
-    "fmt"
     "io/ioutil"
     "net"
     "net/http"
