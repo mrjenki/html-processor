@@ -36,7 +36,7 @@ func CustomLookupIP(hostname, ipAddress string) (net.IP, error) {
     if punyHostname == ipAddress {
         return net.ParseIP(ipAddress), nil
     }
-
+ 
     return nil, fmt.Errorf("Invalid IP address for hostname")
 }
 
