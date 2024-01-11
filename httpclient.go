@@ -9,6 +9,8 @@ import (
     "golang.org/x/net/idna"
     "io/ioutil"
     "fmt"
+    "net"
+    "time"
 )
 
 // CustomHTTPResponse represents the JSON response structure.
@@ -41,9 +43,7 @@ func CustomLookupIP(hostname, ipAddress string) (net.IP, error) {
 // GetHTMLWithCustomOptions sends an HTTP GET request with custom options.
 func GetHTMLWithCustomOptions(targetURL, ipAddress, bearerToken string) ([]byte, error) {
     // Create a custom DNS resolver.
-    customResolver := &net.Resolver{
-        PreferGo: true,
-    }
+
 
     // Resolve the IP address for the specified hostname.
     ip, err := CustomLookupIP(targetURL, ipAddress)
