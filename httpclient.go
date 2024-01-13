@@ -34,11 +34,12 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
 
     // Set the 'Host' header
     req.Header.Set("Host", hostHeader)
-
-    // Add additional headers if provided
+    if len(otherHeaders) > 0 {
+   // Add additional headers if provided
     for key, value := range otherHeaders {
         req.Header.Add(key, value)
     }
+}
 
     // Send the HTTP request
     resp, err := client.Do(req)
