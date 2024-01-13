@@ -67,10 +67,10 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
 }
 
 // ToJSON returns a JSON representation of the CustomHTTPResponse struct.
-func (c CustomHTTPResponse) ToJSON() (string, error) {
+func (c CustomHTTPResponse) ToJSON() (string) {
     jsonResponse, err := json.Marshal(c)
     if err != nil {
         return "", err
     }
-    return string(jsonResponse), nil
+    return string(jsonResponse)
 }
