@@ -1,4 +1,4 @@
-package myhttpclient
+package httpclient
 
 import (
     "encoding/json"
