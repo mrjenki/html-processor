@@ -1,11 +1,11 @@
 package httpclient
 
 import (
-    "encoding/json"
-    "fmt"
-    "net/http"
-    "crypto/tls"
-    "io/ioutil"
+	"crypto/tls"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 )
 
 // CustomHTTPResponse represents the structure of the custom HTTP response.
@@ -36,8 +36,8 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
     req.Header.Set("Host", hostHeader)
     if len(otherHeaders) > 0 {
    // Add additional headers if provided
-    for key, value := range otherHeaders {
-        req.Header.Add(key, value)
+    for k, v := range otherHeaders[0] {
+        req.Header.Set(k, v)
     }
 }
 
@@ -70,7 +70,7 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
 func (c CustomHTTPResponse) ToJSON() (string) {
     jsonResponse, err := json.Marshal(c)
     if err != nil {
-        return "", err
+        return ""
     }
     return string(jsonResponse)
 }
