@@ -1,3 +1,3 @@
-module github.com/mrjenki/http-processor
+module github.com/mrjenki/html-processor
 
 go 1.21.6
