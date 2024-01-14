@@ -9,7 +9,7 @@ import (
 
 // CustomHTTPResponse represents the structure of the custom HTTP response.
 type CustomHTTPResponse struct {
-    FullHeader   string `json:"full_header"`
+    FullHeader   http.Header `json:"full_header"`
     RequestedURL string `json:"requested_url"`
     ForwardedURL string `json:"forwarded_url"`
     HTMLBody     string `json:"html_body"`
@@ -54,11 +54,11 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
     }
 
     // Create a CustomHTTPResponse struct and populate its fields
-    headers,err:=json.Marshal(resp.Header)
-    if err != nil {
-    }
+    // headers,err:=json.Marshal(resp.Header)
+    // if err != nil {
+    // }
     customResponse := CustomHTTPResponse{
-        FullHeader:   string(headers),
+        FullHeader:   resp.Header,
         RequestedURL: targetURL,
         ForwardedURL: resp.Request.URL.String(),
         HTMLBody:     string(body),
