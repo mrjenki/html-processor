@@ -3,8 +3,7 @@ package httpclient
 import (
 	"crypto/tls"
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -49,14 +48,17 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
     defer resp.Body.Close()
 
     // Read the response body
-    body, err := ioutil.ReadAll(resp.Body)
+    body, err := io.ReadAll(resp.Body)
     if err != nil {
         return CustomHTTPResponse{}, err
     }
 
     // Create a CustomHTTPResponse struct and populate its fields
+    headers,err:=json.Marshal(resp.Header)
+    if err != nil {
+    }
     customResponse := CustomHTTPResponse{
-        FullHeader:   fmt.Sprintf("%+v", resp.Header),
+        FullHeader:   string(headers),
         RequestedURL: targetURL,
         ForwardedURL: resp.Request.URL.String(),
         HTMLBody:     string(body),
