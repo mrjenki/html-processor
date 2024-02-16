@@ -64,7 +64,8 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
         HTMLBody:     string(body),
         HTTPCode:     resp.StatusCode,
     }
-
+// try to close connection
+    resp.Body.Close()
     return customResponse, nil
 }
 
