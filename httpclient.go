@@ -4,7 +4,9 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"io"
+	"net"
 	"net/http"
+	"time"
 )
 
 // CustomHTTPResponse represents the structure of the custom HTTP response.
@@ -22,6 +24,15 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
     // Create an HTTP client with custom settings
     tr := &http.Transport{
         TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // Disable SSL certificate verification
+        DialContext: (&net.Dialer{
+            Timeout:   30 * time.Second, // Connection timeout
+            KeepAlive: 30 * time.Second, // Keep-alive period
+        }).DialContext,
+        MaxIdleConns:          100,
+        IdleConnTimeout:       90 * time.Second,
+        TLSHandshakeTimeout:   10 * time.Second,
+        ExpectContinueTimeout: 1 * time.Second,
+        MaxIdleConnsPerHost:   10,
     }
     client := &http.Client{Transport: tr}
 
