@@ -26,7 +26,7 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
         TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // Disable SSL certificate verification
         DialContext: (&net.Dialer{
             Timeout:   30 * time.Second, // Connection timeout
-            KeepAlive: 30 * time.Second, // Keep-alive period
+            KeepAlive: 10 * time.Second, // Keep-alive period
         }).DialContext,
         MaxIdleConns:          100,
         IdleConnTimeout:       90 * time.Second,
