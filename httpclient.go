@@ -28,11 +28,11 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
             Timeout:   30 * time.Second, // Connection timeout
             KeepAlive: 10 * time.Second, // Keep-alive period
         }).DialContext,
-        MaxIdleConns:          1,
-        IdleConnTimeout:       90 * time.Second,
-        TLSHandshakeTimeout:   10 * time.Second,
+        MaxIdleConns:          100000,
+        IdleConnTimeout:       2 * time.Second,
+        TLSHandshakeTimeout:   2 * time.Second,
         ExpectContinueTimeout: 1 * time.Second,
-        MaxIdleConnsPerHost:   1,
+        MaxIdleConnsPerHost:   100000,
     }
     client := &http.Client{Transport: tr}
 
