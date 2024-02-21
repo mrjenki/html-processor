@@ -30,7 +30,7 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, method string, oth
 		}).DialContext,
 		MaxIdleConns:          100000,
 		IdleConnTimeout:       2 * time.Second,
-		TLSHandshakeTimeout:   2 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
 		ExpectContinueTimeout: 1 * time.Second,
 		MaxIdleConnsPerHost:   100000,
 	}
