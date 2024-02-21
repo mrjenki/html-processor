@@ -20,7 +20,7 @@ type CustomHTTPResponse struct {
 
 // FetchURLWithCustomResponse sends an HTTP GET request to the target URL with the specified headers
 // and returns a CustomHTTPResponse struct.
-func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...map[string][]string) (CustomHTTPResponse, error) {
+func FetchURLWithCustomResponse(targetURL, hostHeader string, method string, otherHeaders ...map[string][]string) (CustomHTTPResponse, error) {
 	// Create an HTTP client with custom settings
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // Disable SSL certificate verification
@@ -35,10 +35,10 @@ func FetchURLWithCustomResponse(targetURL, hostHeader string, otherHeaders ...ma
 		MaxIdleConnsPerHost:   100000,
 	}
 	client := &http.Client{Transport: tr}
-	// set request headers
+	//
 
 	// Create an HTTP request with the target URL
-	req, err := http.NewRequest("GET", targetURL, nil)
+	req, err := http.NewRequest(method, targetURL, nil)
 	if err != nil {
 		return CustomHTTPResponse{}, err
 	}
